@@ -1,8 +1,10 @@
 docker role
 =========
 
-[![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-docker  /master/LICENSE)
-[![build status](https://git.epam.com/dip-roles/ansible-role-docker/badges/master/build.svg)](https://git.epam.com/dip-roles/ansible-role-docker/pipelines)
+[![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-docker/master/LICENSE)
+[![Build Status](https://travis-ci.org/lean-delivery/ansible-role-docker.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-docker)
+[![Build Status](https://gitlab.com/lean-delivery/ansible-role-docker/badges/master/build.svg)](https://gitlab.com/lean-delivery/ansible-role-docker)
+
 
 ## Summary
 
@@ -58,7 +60,7 @@ Example Playbook
 - name: Converge
   hosts: all
   roles:
-    - role: ansible-role-docker
+    - role: lean_delivery.docker
 ```
 
 ### Installing docker-ce to ubuntu 18.04:
@@ -66,7 +68,7 @@ Example Playbook
 - name: Converge
   hosts: all
   roles:
-    - role: ansible-role-docker
+    - role: lean_delivery.docker
       vars:
         docker_version: "18.03.1"
 ```
@@ -76,7 +78,7 @@ Example Playbook
 - name: Converge
   hosts: all
   roles:
-    - role: ansible-role-docker
+    - role: lean_delivery.docker
       vars:
         docker_storage_driver: vfs
 ```
