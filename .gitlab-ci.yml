@@ -1,0 +1,30 @@
+---
+# Run all tests
+stages:
+  - lint
+  - Deployment test
+
+before_script:
+  - ansible --version
+  - molecule --version
+
+variables:
+  GET_SOURCES_ATTEMPTS: "5"
+
+AWS ansible-role-docker centos7:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: Deployment test
+  script:
+    - molecule test -s cloud-aws-centos
+  tags:
+    - delegated
+
+AWS ansible-role-docker Ubuntu18.04:
+  variables:
+    EPC_REGION: AWS-EUCENTRAL
+  stage: Deployment test
+  script:
+    - molecule test -s cloud-aws-ubuntu
+  tags:
+    - delegated

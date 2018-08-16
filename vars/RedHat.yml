@@ -1,0 +1,11 @@
+---
+
+packages_base:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+docker_package: >-
+    docker-ce{{ (docker_version != 'latest') | ternary('-' ~ docker_version ~ '*', '') }}
+
+docker_repo: "{{ docker_yum_repo }}"
+docker_gpg: "{{ docker_yum_gpg }}"

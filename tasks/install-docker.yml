@@ -1,0 +1,39 @@
+---
+
+- name: Install {{ docker_package }}
+  package:
+    name: "{{ docker_package }}"
+    state: present
+  become: True
+  notify: restart docker
+
+- block:
+    - name: Add user to group 'docker'
+      user:
+        name: "{{ item }}"
+        append: True
+        groups: docker
+      become: True
+      loop: "{{ l_docker_users }}"
+  when: (l_docker_users | length) > 0
+  vars:
+    l_docker_users: "{{ docker_users | difference(['root']) }}"
+
+- name: Create /etc/docker folder
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  become: True
+  with_items:
+    - /etc/docker
+
+- name: Create daemon.json file
+  template:
+    src: daemon.json.j2
+    dest: "/etc/docker/daemon.json"
+  become: True
+  when: (docker_storage_driver is defined) and (docker_storage_driver != '')
+
+- name: force all notified handlers to run
+  meta: flush_handlers

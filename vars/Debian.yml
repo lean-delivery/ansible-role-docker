@@ -1,0 +1,11 @@
+---
+packages_base:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+docker_package: >-
+    docker-ce{{ (docker_version != 'latest') | ternary('=' ~ docker_version ~ '*', '') }}
+
+docker_repo: "{{ docker_apt_repo }}"
+docker_gpg: "{{ docker_apt_gpg }}"
