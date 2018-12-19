@@ -3,6 +3,8 @@
   package:
     name: "{{ packages_base | union(packages_additional) | unique }}"
     state: present
+  register: installed_package
+  until: installed_package is succeeded
   become: True
 
 - name: Add Docker repository

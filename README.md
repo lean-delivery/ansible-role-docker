@@ -2,9 +2,10 @@ docker role
 =========
 
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-docker/master/LICENSE)
-[![Build Status](https://travis-ci.org/lean-delivery/ansible-role-docker.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-docker)
-[![Build Status](https://gitlab.com/lean-delivery/ansible-role-docker/badges/master/build.svg)](https://gitlab.com/lean-delivery/ansible-role-docker)
-
+[![build status](https://travis-ci.org/lean-delivery/ansible-role-gitlab.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-docker)
+[![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.docker-blue.svg)](https://galaxy.ansible.com/lean_delivery/docker)
+![Ansible](https://img.shields.io/ansible/role/d/28987.svg)
+![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F28987%2F&query=$.min_ansible_version)
 
 ## Summary
 
@@ -86,7 +87,7 @@ Example Playbook
 License
 -------
 
-Apache2
+Apache
 
 Author Information
 ------------------
