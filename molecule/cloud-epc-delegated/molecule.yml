@@ -26,11 +26,12 @@ platforms:
       - debian_family
 provisioner:
   name: ansible
-  log: True
+  log: false
   playbooks:
-    create: ../resources/provisioning/create.yml
-    prepare: ../resources/provisioning/prepare.yml
-    destroy: ../resources/provisioning/destroy.yml
+    create: ../resources/provisioning/EPC/create.yml
+    prepare: ../resources/provisioning/EPC/prepare.yml
+    destroy: ../resources/provisioning/EPC/destroy.yml
+    verify: verify.yml
   config_options:
     ssh_connection:
       control_path: "/var/ans/%%h"
@@ -41,9 +42,9 @@ provisioner:
 scenario:
   name: cloud-epc-delegated
 verifier:
-  name: testinfra
+  name: ansible
   options:
     verbose: true
   directory: ../resources/tests/
   lint:
-    name: flake8
+    name: ansible-lint

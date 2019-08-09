@@ -1,17 +1,34 @@
 ---
-- name: Install required packages
-  package:
-    name: "{{ packages_base | union(packages_additional) | unique }}"
-    state: present
-  register: installed_package
-  until: installed_package is succeeded
-  become: True
+- block:
+    - name: Add centos extra repo
+      yum_repository:
+        name: centos-extras
+        baseurl: http://mirror.centos.org/centos/7/extras/x86_64/
+        gpgcheck: true
+        gpgkey: http://mirror.centos.org/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
+        description: Centos Extras
 
-- name: Add Docker repository
-  yum_repository:
-    name: docker-ce
-    baseurl: "{{ docker_repo }}"
-    gpgcheck: True
-    gpgkey: "{{ docker_gpg }}"
-    description: Docker CE Stable
-  become: True
+    - name: Add epel repo
+      yum:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        state: present
+      register: installed_package
+      until: installed_package is succeeded
+
+    - name: Install required packages
+      yum:
+        name: '{{ docker_packages_base | union(docker_packages_additional) | unique }}'
+        state: present
+        update_cache: true
+      register: installed_package
+      retries: 10
+      until: installed_package is succeeded
+
+    - name: Add Docker repository
+      yum_repository:
+        name: docker-ce-stable
+        baseurl: '{{ docker_repo }}'
+        gpgcheck: true
+        gpgkey: '{{ docker_gpg }}'
+        description: Docker CE Stable
+  become: true

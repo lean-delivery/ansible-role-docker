@@ -3,5 +3,5 @@
   hosts: all
   roles:
     - role: ansible-role-docker
-      vars:
-        docker_storage_driver: vfs
+  vars:
+    docker_storage_driver: vfs

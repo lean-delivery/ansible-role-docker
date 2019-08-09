@@ -1,14 +1,18 @@
 ---
 # tasks file for ansible-role-docker
-
-- name: Incule variables
-  include_vars: "{{ ansible_os_family }}.yml"
+- name: Include variables
+  include_vars: '{{ distribution }}'
+  with_first_found:
+    - '{{ ansible_distribution }}.yml'
+    - '{{ ansible_os_family }}.yml'
+  loop_control:
+    loop_var: distribution
 
 - name: Configure system
-  include_tasks: "{{ platform }}"
+  include_tasks: '{{ platform }}'
   with_first_found:
-    - "system/{{ ansible_os_family }}.yml"
-    - "system/not-supported.yml"
+    - 'system/{{ ansible_os_family }}.yml'
+    - system/not-supported.yml
   loop_control:
     loop_var: platform
 

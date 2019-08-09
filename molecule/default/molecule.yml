@@ -12,12 +12,12 @@ lint:
 platforms:
   - name: test-docker-centos7-docker
     image: leandelivery/docker-systemd:centos7
-    privileged: True
+    privileged: true
     groups:
       - rhel_family
   - name: test-docker-ubuntu1804-docker
     image: leandelivery/docker-systemd:ubuntu-18.04
-    privileged: True
+    privileged: true
     security_opts:
       - seccomp=unconfined
     volumes:
@@ -31,15 +31,17 @@ platforms:
       - debian_family
 provisioner:
   name: ansible
-  # log: True
+  log: false
   lint:
     name: ansible-lint
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
+  playbooks:
+    verify: ../resources/tests/verify.yml
 scenario:
   name: default
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
+  name: ansible
   lint:
-    name: flake8
+    name: ansible-lint

@@ -5,5 +5,5 @@
   service:
     name: docker
     state: restarted
-    enabled: True
-  become: True
+    enabled: true
+  become: true

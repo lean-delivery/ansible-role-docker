@@ -1,37 +1,36 @@
 ---
+- name: Become block
+  block:
+    - name: Install {{ docker_package }}
+      package:
+        name: '{{ docker_package }}'
+        state: present
+      register: installed_docker
+      retries: 30
+      until: installed_docker is succeeded
+      notify: restart docker
 
-- name: Install {{ docker_package }}
-  package:
-    name: "{{ docker_package }}"
-    state: present
-  become: True
-  register: installed_docker
-  until: installed_docker is succeeded
-  notify: restart docker
+    - name: Add user to group 'docker'
+      user:
+        name: '{{ item }}'
+        append: true
+        groups: docker
+      loop: '{{ l_docker_users }}'
+      vars:
+        l_docker_users: "{{ docker_users | difference(['root']) }}"
 
-- name: Add user to group 'docker'
-  user:
-    name: "{{ item }}"
-    append: True
-    groups: docker
-  become: True
-  loop: "{{ l_docker_users }}"
-  vars:
-    l_docker_users: "{{ docker_users | difference(['root']) }}"
+    - name: Create /etc/docker folder
+      file:
+        path: /etc/docker
+        state: directory
+        mode: 0755
 
-- name: Create /etc/docker folder
-  file:
-    path: "/etc/docker"
-    state: directory
-    mode: 0755
-  become: True
-
-- name: Create daemon.json file
-  template:
-    src: daemon.json.j2
-    dest: "/etc/docker/daemon.json"
-  become: True
-  when: docker_storage_driver|trim
+    - name: Create daemon.json file
+      template:
+        src: daemon.json.j2
+        dest: /etc/docker/daemon.json
+      when: docker_storage_driver|trim|length
+  become: true
 
 - name: force all notified handlers to run
   meta: flush_handlers
