@@ -29,7 +29,6 @@
       template:
         src: daemon.json.j2
         dest: /etc/docker/daemon.json
-      when: docker_storage_driver|trim|length
   become: true
 
 - name: force all notified handlers to run

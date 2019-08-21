@@ -71,17 +71,19 @@ Example Playbook
   roles:
     - role: lean_delivery.docker
   vars:
-    docker_version: 18.03.1
+    docker_version: 19.03
 ```
 
-### Installing docker-ce to centos 7 with vfs driver:
+### Installing docker-ce to centos 7 with overlay2 driver and custom data root:
 ```yaml
 - name: Converge
   hosts: all
   roles:
     - role: lean_delivery.docker
   vars:
-    docker_storage_driver: vfs
+    daemon_conf:
+      storage-driver: overlay2
+      data-root: /mnt/volume/docker
 ```
 
 License

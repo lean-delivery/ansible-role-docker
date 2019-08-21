@@ -4,4 +4,6 @@
   roles:
     - role: ansible-role-docker
   vars:
-    docker_storage_driver: vfs
+    daemon_conf:
+      storage-driver: vfs
+      data-root: /opt/
