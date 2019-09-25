@@ -27,6 +27,7 @@ platforms:
 
   - name: test-aws-amazon2-docker
     image: ami-0b898040803850657
+    platform: amazon2
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af

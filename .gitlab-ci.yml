@@ -2,7 +2,7 @@
 # Run all tests
 default:
   image:
-    name: leandelivery/docker-ansible-ci:ansible-2.7
+    name: leandelivery/docker-ansible-ci:ansible-2.8
 
 stages:
   - lint
@@ -46,7 +46,7 @@ AWS docker:
   tags:
     - aws
 
-.EPC docker:
+EPC docker:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test

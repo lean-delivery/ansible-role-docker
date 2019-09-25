@@ -3,7 +3,7 @@ docker_packages_base:
   - yum-utils
   - device-mapper-persistent-data
   - lvm2
-  - container-selinux
+  - http://vault.centos.org/centos/7.6.1810/extras/x86_64/Packages/container-selinux-2.68-1.el7.noarch.rpm
 docker_package: >-
     docker-ce{{ (docker_version != 'latest') | ternary('-' ~ docker_version ~ '*', '') }}
 
