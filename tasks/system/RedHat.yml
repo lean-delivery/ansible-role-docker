@@ -1,19 +1,21 @@
 ---
 - block:
-    - name: Add centos extra repo
+    - name: Add CentOS extra repo
       yum_repository:
         name: centos-extras
         baseurl: http://mirror.centos.org/centos/7/extras/x86_64/
         gpgcheck: true
         gpgkey: http://mirror.centos.org/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
         description: Centos Extras
+      when: ansible_distribution == 'CentOS'
 
-    - name: Add epel repo
+    - name: Add EPEL repo
       yum:
         name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
         state: present
       register: installed_package
       until: installed_package is succeeded
+      when: ansible_distribution == 'CentOS'
 
     - name: Install required packages
       yum:

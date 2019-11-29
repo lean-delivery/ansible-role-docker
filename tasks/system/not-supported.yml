@@ -2,5 +2,5 @@
 - name: "Warn on unsupported platform"
   fail:
     msg: |
-      This role does not support '{{ ansible_os_family }}' platform.
+      This role does not support '{{ ansible_distribution }}' platform.
           Please contact support@lean-delivery.com

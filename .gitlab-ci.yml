@@ -28,7 +28,7 @@ Lint:
   after_script:
     - rm -rf ~/ansible-lint-rules
   tags:
-    - aws
+    - lint
 
 Docker docker:
   stage: deployment test
@@ -46,7 +46,7 @@ AWS docker:
   tags:
     - aws
 
-EPC docker:
+.EPC docker:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test

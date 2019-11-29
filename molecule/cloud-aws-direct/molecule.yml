@@ -13,7 +13,7 @@ platforms:
   - name: test-aws-centos7-docker
     image: ami-9887c6e7
     platform: centos7
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -28,7 +28,7 @@ platforms:
   - name: test-aws-amazon2-docker
     image: ami-0b898040803850657
     platform: amazon2
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: False
@@ -40,10 +40,25 @@ platforms:
     groups:
       - rhel_family
 
+  - name: test-aws-rhel7-docker
+    image: ami-029c0fbe456d58bd1
+    platform: rhel7
+    instance_type: t3.micro
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: False
+    spot_price: 0.1
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: ec2-user
+    groups:
+      - rhel_family
+
   - name: test-aws-ubuntu16-docker
     image: ami-09677e0a6b14905b0
     platform: ubuntu16
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -58,7 +73,7 @@ platforms:
   - name: test-aws-ubuntu18-docker
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -73,7 +88,7 @@ platforms:
   - name: test-aws-Debian9-docker
     image: ami-003f19e0e687de1cd
     platform: debian9
-    instance_type: m5.large
+    instance_type: t3.micro
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -86,7 +101,7 @@ platforms:
       - debian_family
 provisioner:
   name: ansible
-  log: false
+  log: true
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
